@@ -37,7 +37,7 @@ BATCH_SIZE = 10
 EPOCHS = 15 
 INDEX_OFFSET = 90 # slice initial offset index
 
-IMG_DIR = 'D:\\ADNI1_Complete_1Yr_1.5T\\sample\\wavelet\\coif\\level2' # image directory pointing to the DWT coefficients
+IMG_DIR = '' # image directory pointing to the DWT coefficients
 
 # Define the classifications and classification labels
 #label_dict = {'AD': 0, 'MCI': 1, 'NL': 2}
