@@ -11,15 +11,17 @@ import cv2
 
 from matplotlib import pyplot as plt
 
-IMAGE_DIR = 'E:/ADNI1_Complete_1Yr_1.5T/fall2022/labeled'
+SRC_DIR = ''
+DEST_DIR = ''
 
-def extract_slices(base_dir):
+
+def extract_slices():
     print('Extracting and saving slices...')
     total_slices = 0
 
     # loop through all mri images
     files = list()
-    for (dirpath, dirnames, filenames) in os.walk(IMAGE_DIR):
+    for (dirpath, dirnames, filenames) in os.walk(SRC_DIR):
         files += [os.path.join(dirpath, file) for file in filenames]
 
     for file in files:
@@ -42,7 +44,7 @@ def extract_slices(base_dir):
                 slice = 255 * ((slice - np.min(slice)) / (np.max(slice) - np.min(slice)))
 
             # convert image to jpeg
-            dest_dir = os.path.join('D:/ADNI1_Complete_1Yr_1.5T/sample/whole/', diagnosis, fname + '_axial_slice' + str(idx) + '.jpg')
+            dest_dir = os.path.join(DEST_DIR, diagnosis, fname + '_axial_slice' + str(idx) + '.jpg')
             cv2.imwrite(dest_dir, slice)  
             total_slices += 1
 
@@ -55,7 +57,7 @@ def extract_slices(base_dir):
                 slice = 255 * ((slice - np.min(slice)) / (np.max(slice) - np.min(slice)))
 
             # convert image to jpeg
-            dest_dir = os.path.join('D:/ADNI1_Complete_1Yr_1.5T/sample/whole/', diagnosis, fname + '_sagittal_slice' + str(idx) + '.jpg')
+            dest_dir = os.path.join(DEST_DIR, diagnosis, fname + '_sagittal_slice' + str(idx) + '.jpg')
             cv2.imwrite(dest_dir, slice)  
             total_slices += 1
 
@@ -68,7 +70,7 @@ def extract_slices(base_dir):
                 slice = 255 * ((slice - np.min(slice)) / (np.max(slice) - np.min(slice)))
 
             # convert image to jpeg
-            dest_dir = os.path.join('D:/ADNI1_Complete_1Yr_1.5T/sample/whole/', diagnosis, fname + '_coronal_slice' + str(idx) + '.jpg')
+            dest_dir = os.path.join(DEST_DIR, diagnosis, fname + '_coronal_slice' + str(idx) + '.jpg')
             cv2.imwrite(dest_dir, slice)  
             total_slices += 1
     

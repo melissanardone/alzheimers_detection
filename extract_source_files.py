@@ -7,14 +7,14 @@
 import os
 import shutil
 
-IMAGE_DIR = 'ADNI/'
+SRC_DIR = 'ADNI/'
 DEST_DIR = ''
 
 def extract_source_files(base_dir):
     print('Extracting source files...')
     total_src_files = 0
 
-    img_dir = os.path.join(base_dir, IMAGE_DIR)
+    img_dir = os.path.join(base_dir, SRC_DIR)
     dst_dir = os.path.join(base_dir, DEST_DIR)
 
     # loop through all mri images

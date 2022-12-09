@@ -9,10 +9,8 @@ import os
 import pandas as pd
 import tensorflow as tf
 import numpy as np
-import imutils
 import cv2
 import time
-import random
 import sys
 
 from sklearn.model_selection import train_test_split
@@ -23,9 +21,7 @@ from keras import backend as K
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras.callbacks import (ModelCheckpoint)
 from matplotlib import pyplot as plt
-from skimage.util import random_noise
-from sklearn.metrics import confusion_matrix, plot_confusion_matrix, ConfusionMatrixDisplay
-from keras.callbacks import Callback
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from sklearn import metrics
 
 ###### Model and training parameters #####
@@ -35,9 +31,9 @@ IMG_SHAPE = (38, 38, 3) # input coefficient size per slices
 SLICE_COUNT = 32 # slice count
 BATCH_SIZE = 10
 EPOCHS = 15 
-INDEX_OFFSET = 90 # slice initial offset index
+INDEX_OFFSET = 15 #90 # slice initial offset index
 
-IMG_DIR = '' # image directory pointing to the DWT coefficients
+SRC_DIR = '' # image directory pointing to the DWT coefficients
 
 # Define the classifications and classification labels
 #label_dict = {'AD': 0, 'MCI': 1, 'NL': 2}
@@ -81,7 +77,7 @@ def generate_dataframe():
     df = pd.DataFrame(columns=['img_id', 'classification'])
 
     # loop through all mri images
-    for (dirpath, _, filenames) in os.walk(IMG_DIR):
+    for (dirpath, _, filenames) in os.walk(SRC_DIR):
         for file in filenames:
             data = file.rsplit('_')
             id = int(data[1])
@@ -204,7 +200,7 @@ class DataGenerator(Sequence):
 
             # load images
             for slice in range(SLICE_COUNT):
-                path = os.path.join(IMG_DIR, classification, 'img_' + str(img_id) + '_slice' + str(slice+INDEX_OFFSET) + '.jpg')
+                path = os.path.join(SRC_DIR, classification, 'img_' + str(img_id) + '_slice' + str(slice+INDEX_OFFSET) + '.jpg')
                 image = load_image(path)
                 X[slice][i,] = image.reshape(IMG_SHAPE)
 
